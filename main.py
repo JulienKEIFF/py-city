@@ -1,38 +1,27 @@
-import pygame, sys 
-from settings import settings
-from pygame.locals import *
+import pygame as pg
+from game.game import Game
 
-WHITE = (200, 200, 200)
-
-def draw_grid():
-    blockSize = 20  # Set the size of the grid block
-    for x in range(720):
-        for y in range(480):
-            rect = pygame.Rect(x*blockSize, y*blockSize, blockSize, blockSize)
-            pygame.draw.rect(pygame.display.get_surface(), WHITE, rect, 1)
-
-# Beginning Game Loop
-def loop():
-    FramePerSec = pygame.time.Clock()
-
-    while True:
-        pygame.display.update()
-        draw_grid()
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-
-        FramePerSec.tick(settings.FPS_COUNTER)
-
-# Initiate game engine
 def main():
-    pygame.init()
+    running = True
+    playing = True
 
-    DISPLAYSURF = pygame.display.set_mode((720, 480))
-    pygame.display.set_caption(settings.GAME_NAME)
+    pg.init()
+    pg.mixer.init()
+    screen = pg.display.set_mode((0, 0), pg.FULLSCREEN)
+    clock = pg.time.Clock()
 
-    loop()
-    return 
+    #implement menu
 
-main()
+    # implement game
+    game = Game(screen, clock)
+
+    while running:
+        # start menu
+
+        while playing:
+            # game loop
+            game.run()
+
+
+if __name__ == '__main__':
+    main()
