@@ -1,7 +1,7 @@
 import pygame as pg
 import random
 
-from .settings import TILE_SIZE 
+from .settings import TILE_SIZE, WORLD_SIZE
 
 class World:
 
@@ -11,8 +11,9 @@ class World:
     self.width = width
     self.height = height
 
-    self.world = self.create_world()
+    self.grass_tiles = pg.Surface((grid_x * TILE_SIZE * 2, grid_y * TILE_SIZE + 2 * TILE_SIZE))
     self.tiles = self.load_images()
+    self.world = self.create_world()
 
   def create_world(self):
     world = []
@@ -22,6 +23,9 @@ class World:
       for grid_y in range(self.grid_y):
         world_tile = self.grid_to_world(grid_x, grid_y)
         world[grid_x].append(world_tile)
+
+        render_pos = world_tile["render_pos"]
+        self.grass_tiles.blit(self.tiles["grass"], (render_pos[0] + self.grass_tiles.get_width()/2, render_pos[1]))
 
     return world
 
