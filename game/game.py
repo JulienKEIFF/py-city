@@ -5,6 +5,7 @@ from .settings import FPS_COUNTER, WORLD_SIZE
 from .utils import draw_text
 from .camera import Camera
 from .hud import Hud
+from .resources import Resources
 
 class Game:
 
@@ -12,17 +13,20 @@ class Game:
     self.screen = screen
     self.clock = clock
     self.width, self.height = self.screen.get_size()
+    self.entities = []
 
-    self.hud = Hud(self.width, self.height)
+    self.resources = Resources()
+
+    # HUD
+    self.hud = Hud(self.resources, self.width, self.height)
 
     # World
-    self.world = World(self.hud, WORLD_SIZE, WORLD_SIZE, self.width, self.height)
+    self.world = World(self.resources, self.entities, self.hud, WORLD_SIZE, WORLD_SIZE, self.width, self.height)
 
     # Camera
     self.camera = Camera(self.width, self.height)
 
-    # HUD
-    self.hud = Hud(self.width, self.height)
+    
 
     
 
@@ -47,8 +51,9 @@ class Game:
 
   def update(self):
     self.camera.update()
-    self.world.hud.update()
+    self.hud.update()
     self.world.update(self.camera)
+    for e in self.entities: e.update()
 
 
 

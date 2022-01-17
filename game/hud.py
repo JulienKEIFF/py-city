@@ -1,11 +1,13 @@
 import pygame as pg
 from .utils import draw_text
 from .settings import HUD_COLOR
+from .resources import Resources
 class Hud:
   
-  def __init__(self, width, height):
+  def __init__(self, resources, width, height):
     self.width = width
     self.height = height
+    self.resources = resources
 
     self.hud_color = HUD_COLOR
 
@@ -87,8 +89,8 @@ class Hud:
 
     # resssources
     pos = self.width - 400
-    for ressource in ["Bois:", "Pierre:", "Or:"]:
-      draw_text(screen, ressource, 30, (255, 255, 255), (pos, 5))
+    for ressource in self.resources.get_resources().items():
+      draw_text(screen, ressource[1]["name"] + ": " + ressource[1]["total"].__str__(), 30, (255, 255, 255), (pos, 5))
       pos += 150
 
 

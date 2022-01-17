@@ -2,12 +2,14 @@ import pygame as pg
 import random
 import noise
 
-from .settings import TILE_SIZE, WORLD_SIZE, DEBUG
+from .settings import TILE_SIZE
 from .tile_repository import load_images
-
+from .build import *
 class World:
 
-  def __init__(self, hud, grid_x, grid_y, width, height):
+  def __init__(self, resources, entities, hud, grid_x, grid_y, width, height):
+    self.resources = resources
+    self.entities = entities
     self.hud = hud
     self.grid_x = grid_x
     self.grid_y = grid_y
@@ -15,6 +17,7 @@ class World:
     self.height = height
 
     self.perlin_scale = grid_x/2
+    self.buildings = [[None for x in range(self.grid_x)] for y in range(self.grid_y)]
 
     self.grass_tiles = pg.Surface((grid_x * TILE_SIZE * 2, grid_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
     self.tiles = load_images()
@@ -31,27 +34,39 @@ class World:
     self.temp_tile = None
     if self.hud.selected_building is not None:
 
-      grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
+      if self.resources.is_affordable(self.hud.selected_building["name"]):
+        grid_pos = self.mouse_to_grid(mouse_pos[0], mouse_pos[1], camera.scroll)
 
-      if self.can_place_tile(grid_pos):
-        img = self.hud.selected_building["image"].copy()
-        img.set_alpha(100)
+        if self.can_place_tile(grid_pos):
+          img = self.hud.selected_building["image"].copy()
+          img.set_alpha(100)
 
-        render_pos = self.world[grid_pos[0]][grid_pos[1]]["render_pos"]
-        iso_poly = self.world[grid_pos[0]][grid_pos[1]]["iso_poly"]
-        collision = self.world[grid_pos[0]][grid_pos[1]]["collision"]
+          render_pos = self.world[grid_pos[0]][grid_pos[1]]["render_pos"]
+          iso_poly = self.world[grid_pos[0]][grid_pos[1]]["iso_poly"]
+          collision = self.world[grid_pos[0]][grid_pos[1]]["collision"]
 
-        self.temp_tile = {
-          "image": img,
-          "render_pos": render_pos,
-          "iso_poly": iso_poly,
-          "collision": collision
-        }
+          self.temp_tile = {
+            "image": img,
+            "render_pos": render_pos,
+            "iso_poly": iso_poly,
+            "collision": collision
+          }
 
-        if mouse_action[0] and not collision:
-          self.world[grid_pos[0]][grid_pos[1]]["tile"] = self.hud.selected_building["name"]
-          self.world[grid_pos[0]][grid_pos[1]]["collision"] = True
-          self.hud.selected_building = None
+          if mouse_action[0] and not collision:
+            if self.hud.selected_building["name"] == "mine":
+              entity = Mine(grid_pos, self.resources)
+              self.entities.append(entity)
+              self.buildings[grid_pos[0]][grid_pos[1]] = entity
+            
+            if self.hud.selected_building["name"] == "sawmill":
+              entity = SawMill(grid_pos, self.resources)
+              self.entities.append(entity)
+              self.buildings[grid_pos[0]][grid_pos[1]] = entity
+
+            self.world[grid_pos[0]][grid_pos[1]]["tile"] = self.hud.selected_building["name"]
+            self.world[grid_pos[0]][grid_pos[1]]["collision"] = True
+            self.hud.selected_building = None
+
 
 
 
