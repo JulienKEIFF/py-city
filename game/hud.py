@@ -1,7 +1,6 @@
 import pygame as pg
 from .utils import draw_text
 from .settings import HUD_COLOR
-
 class Hud:
   
   def __init__(self, width, height):
@@ -12,14 +11,17 @@ class Hud:
 
     # ressources HUD
     self.ressources_surface = pg.Surface((width, height * 0.02), pg.SRCALPHA)
+    self.resources_rect = self.ressources_surface.get_rect(topleft=(0, 0))
     self.ressources_surface.fill(self.hud_color)
 
     # Building HUD
     self.building_surface = pg.Surface((width * 0.15, height * 0.25), pg.SRCALPHA)
+    self.build_rect = self.building_surface.get_rect(topleft=(self.width * 0.84, self.height * 0.74))
     self.building_surface.fill(self.hud_color)
 
     # Select HUD
     self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
+    self.select_rect = self.select_surface.get_rect(topleft=(self.width * 0.35, self.height * 0.79))
     self.select_surface.fill(self.hud_color)
 
     self.images = self.load_image()
@@ -87,7 +89,7 @@ class Hud:
     pos = self.width - 400
     for ressource in ["Bois:", "Pierre:", "Or:"]:
       draw_text(screen, ressource, 30, (255, 255, 255), (pos, 5))
-      pos += 100
+      pos += 150
 
 
 
@@ -102,10 +104,9 @@ class Hud:
 
     return images
 
-    
+
 
   def scale_image(self, image, w=None, h=None):
-
     if (w == None) and (h == None):
       pass
     elif h == None:
