@@ -67,8 +67,8 @@ class World:
           screen.blit(
             self.tiles[tile], 
             (
-              render_pos[0] + self.grass_tiles.get_width() / 2 + camera.scroll.x + 30, 
-              render_pos[1] - (self.tiles[tile].get_height() - TILE_SIZE + 15) + camera.scroll.y
+              render_pos[0] + self.grass_tiles.get_width() / 2 + camera.scroll.x, 
+              render_pos[1] - (self.tiles[tile].get_height() - TILE_SIZE) + camera.scroll.y
             )
           )
 
@@ -83,8 +83,8 @@ class World:
       screen.blit(
         self.temp_tile["image"],
         (
-          render_pos[0] + self.grass_tiles.get_width() / 2 + camera.scroll.x + 30,
-          render_pos[1] - (self.temp_tile["image"].get_height() - TILE_SIZE + 15) + camera.scroll.y
+          render_pos[0] + self.grass_tiles.get_width() / 2 + camera.scroll.x,
+          render_pos[1] - (self.temp_tile["image"].get_height() - TILE_SIZE) + camera.scroll.y
         )
       )
 
