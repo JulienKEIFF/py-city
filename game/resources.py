@@ -6,15 +6,15 @@ class Resources:
     self.resources = {
       "wood": {
         "name": "Bois",
-        "total": 0
+        "total": 20
       },
       "rock":{
         "name": "Roche",
-        "total": 0
+        "total": 20
       },
       "gold":{
         "name": "Or",
-        "total": 0
+        "total": 20
       }
     }
 

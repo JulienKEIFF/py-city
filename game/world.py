@@ -66,6 +66,7 @@ class World:
             self.world[grid_pos[0]][grid_pos[1]]["tile"] = self.hud.selected_building["name"]
             self.world[grid_pos[0]][grid_pos[1]]["collision"] = True
             self.hud.selected_building = None
+            pg.mixer.Sound("assets/sound/sfx/build.wav").play().set_volume(0.05)
 
 
 
@@ -188,7 +189,7 @@ class World:
 
   def can_place_tile(self, grid_pos):
     mouse_on_panel = False
-    for rect in [self.hud.resources_rect, self.hud.build_rect, self.hud.select_rect]:
+    for rect in [self.hud.resources_rect, self.hud.build_rect]:
       if rect.collidepoint(pg.mouse.get_pos()):
         mouse_on_panel = True
     world_bounds = (0 <= grid_pos[0] <= self.grid_x) and (0 <= grid_pos[1] <= self.grid_x)

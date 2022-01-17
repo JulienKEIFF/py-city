@@ -12,7 +12,7 @@ class Hud:
     self.hud_color = HUD_COLOR
 
     # ressources HUD
-    self.ressources_surface = pg.Surface((width, height * 0.02), pg.SRCALPHA)
+    self.ressources_surface = pg.Surface((width, height * 0.04), pg.SRCALPHA)
     self.resources_rect = self.ressources_surface.get_rect(topleft=(0, 0))
     self.ressources_surface.fill(self.hud_color)
 
@@ -20,11 +20,6 @@ class Hud:
     self.building_surface = pg.Surface((width * 0.15, height * 0.25), pg.SRCALPHA)
     self.build_rect = self.building_surface.get_rect(topleft=(self.width * 0.84, self.height * 0.74))
     self.building_surface.fill(self.hud_color)
-
-    # Select HUD
-    self.select_surface = pg.Surface((width * 0.3, height * 0.2), pg.SRCALPHA)
-    self.select_rect = self.select_surface.get_rect(topleft=(self.width * 0.35, self.height * 0.79))
-    self.select_surface.fill(self.hud_color)
 
     self.images = self.load_image()
     self.tiles = self.create_build_hud()
@@ -82,7 +77,6 @@ class Hud:
 
     screen.blit(self.ressources_surface, (0, 0))
     screen.blit(self.building_surface, (self.width * 0.85, self.height * 0.75))
-    screen.blit(self.select_surface, (self.width * 0.35, self.height * 0.8))
 
     for tile in self.tiles:
       screen.blit(tile["icon"], tile["rect"].topleft)
