@@ -27,6 +27,8 @@ class Hud:
 
     self.selected_building = None
 
+
+
   def create_build_hud(self):
     render_pos = [self.width * 0.85 + 10, self.height * 0.75 + 10]
     object_width = (self.building_surface.get_width() - 60 )/ 4 
@@ -51,6 +53,8 @@ class Hud:
 
     return tiles
 
+
+
   def update(self):
     mouse_pos = pg.mouse.get_pos()
     mouse_action = pg.mouse.get_pressed()
@@ -62,6 +66,8 @@ class Hud:
       if tile["rect"].collidepoint(mouse_pos):
         if mouse_action[0]:
           self.selected_building = tile
+
+
 
   def draw(self, screen):
 
@@ -83,6 +89,8 @@ class Hud:
       draw_text(screen, ressource, 30, (255, 255, 255), (pos, 5))
       pos += 100
 
+
+
   def load_image(self):
     sawmill = pg.image.load("assets/building/sawmill.png")
     mine = pg.image.load("assets/building/mine.png")
@@ -94,19 +102,21 @@ class Hud:
 
     return images
 
+    
+
   def scale_image(self, image, w=None, h=None):
 
     if (w == None) and (h == None):
-        pass
+      pass
     elif h == None:
-        scale = w / image.get_width()
-        h = scale * image.get_height()
-        image = pg.transform.scale(image, (int(w), int(h)))
+      scale = w / image.get_width()
+      h = scale * image.get_height()
+      image = pg.transform.scale(image, (int(w), int(h)))
     elif w == None:
-        scale = h / image.get_height()
-        w = scale * image.get_width()
-        image = pg.transform.scale(image, (int(w), int(h)))
+      scale = h / image.get_height()
+      w = scale * image.get_width()
+      image = pg.transform.scale(image, (int(w), int(h)))
     else:
-        image = pg.transform.scale(image, (int(w), int(h)))
+      image = pg.transform.scale(image, (int(w), int(h)))
 
     return image
