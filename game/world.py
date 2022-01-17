@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+import noise
 
 from .settings import TILE_SIZE, WORLD_SIZE
 
@@ -11,7 +12,9 @@ class World:
     self.width = width
     self.height = height
 
-    self.grass_tiles = pg.Surface((grid_x * TILE_SIZE * 2, grid_y * TILE_SIZE + 2 * TILE_SIZE))
+    self.perlin_scale = grid_x/2
+
+    self.grass_tiles = pg.Surface((grid_x * TILE_SIZE * 2, grid_y * TILE_SIZE + 2 * TILE_SIZE)).convert_alpha()
     self.tiles = self.load_images()
     self.world = self.create_world()
 
@@ -43,13 +46,20 @@ class World:
     min_y = min([y for x, y in iso_poly])
     
     r = random.randint(0, 100)
+    perlin = 100 * noise.pnoise2(
+      grid_x/self.perlin_scale, 
+      grid_y/self.perlin_scale, 
+    )
 
-    if r <= 5:
+    if(perlin >= 15) or (perlin <= -35):
       tile = "tree"
-    elif r<= 10:
-      tile = "rock"
     else:
-      tile = ""
+      if r == 1:
+        tile = "tree"
+      elif r == 2:
+        tile = "rock"
+      else:
+        tile = ""
 
     out = {
       "grid": [grid_x, grid_y],
@@ -67,9 +77,8 @@ class World:
     return (iso_x, iso_y)
 
   def load_images(self):
-    grass = pg.image.load("assets/env/grass.png")
-    block = pg.image.load("assets/env/block.png")
-    tree = pg.image.load("assets/env/tree.png")
-    rock = pg.image.load("assets/env/rock.png")
+    grass = pg.image.load("assets/env/grass.png").convert_alpha()
+    tree = pg.image.load("assets/env/tree.png").convert_alpha()
+    rock = pg.image.load("assets/env/rock.png").convert_alpha()
 
-    return {"grass": grass, "block": block, "tree": tree, "rock": rock}
+    return {"grass": grass, "tree": tree, "rock": rock}

@@ -4,6 +4,7 @@ from .world import World
 from .settings import TILE_SIZE, DEBUG, FPS_COUNTER, WORLD_SIZE
 from .utils import draw_text
 from .camera import Camera
+from .hud import Hud
 
 class Game:
 
@@ -17,6 +18,9 @@ class Game:
 
     # Camera
     self.camera = Camera(self.width, self.height)
+
+    # HUD
+    self.hud = Hud(self.width, self.height)
 
   def run(self):
     self.playing = True
@@ -35,6 +39,7 @@ class Game:
 
   def update(self):
     self.camera.update()
+    self.hud.update()
 
   def draw(self):
     self.screen.fill((10, 10, 10))
@@ -55,8 +60,6 @@ class Game:
             )
           )
 
-
-
         if DEBUG:
           rect = pg.Rect(cell[0][0], cell[0][1], TILE_SIZE, TILE_SIZE)
           cell = self.world.world[x][y]["cart_rect"]
@@ -66,6 +69,8 @@ class Game:
           pg.draw.polygon(self.screen, (0, 0, 0), p, 1)
           
           pg.draw.rect(self.screen, (0, 0, 255), rect, 1)
+
+    self.hud.draw(self.screen)
 
     draw_text(
       self.screen,
