@@ -41,7 +41,6 @@ class Resources:
 
   def add_citizen(self, citizen_to_add):
     self.resources["citizen"]["total"] += citizen_to_add
-    print('ici')
 
   def is_affordable(self, building):
     affordable = True

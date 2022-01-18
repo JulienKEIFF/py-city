@@ -41,42 +41,46 @@ class World:
           img = self.hud.selected_building["image"].copy()
           img.set_alpha(100)
 
-          render_pos = self.world[grid_pos[0]][grid_pos[1]]["render_pos"]
-          iso_poly = self.world[grid_pos[0]][grid_pos[1]]["iso_poly"]
-          collision = self.world[grid_pos[0]][grid_pos[1]]["collision"]
+          try:
+            render_pos = self.world[grid_pos[0]][grid_pos[1]]["render_pos"]
+            iso_poly = self.world[grid_pos[0]][grid_pos[1]]["iso_poly"]
+            collision = self.world[grid_pos[0]][grid_pos[1]]["collision"]
 
-          self.temp_tile = {
-            "image": img,
-            "render_pos": render_pos,
-            "iso_poly": iso_poly,
-            "collision": collision
-          }
+            self.temp_tile = {
+              "image": img,
+              "render_pos": render_pos,
+              "iso_poly": iso_poly,
+              "collision": collision
+            }
 
-          if mouse_action[0] and not collision:
-            if self.hud.selected_building["name"] == "mine":
-              entity = Mine(grid_pos, self.resources)
-              self.entities.append(entity)
-              self.buildings[grid_pos[0]][grid_pos[1]] = entity
-            
-            if self.hud.selected_building["name"] == "sawmill":
-              entity = SawMill(grid_pos, self.resources)
-              self.entities.append(entity)
-              self.buildings[grid_pos[0]][grid_pos[1]] = entity
+            if mouse_action[0] and not collision:
+              if self.hud.selected_building["name"] == "mine":
+                entity = Mine(grid_pos, self.resources)
+                self.entities.append(entity)
+                self.buildings[grid_pos[0]][grid_pos[1]] = entity
+              
+              if self.hud.selected_building["name"] == "sawmill":
+                entity = SawMill(grid_pos, self.resources)
+                self.entities.append(entity)
+                self.buildings[grid_pos[0]][grid_pos[1]] = entity
 
-            if self.hud.selected_building["name"] == "church":
-              entity = Chuch(grid_pos, self.resources)
-              self.entities.append(entity)
-              self.buildings[grid_pos[0]][grid_pos[1]] = entity
+              if self.hud.selected_building["name"] == "church":
+                entity = Chuch(grid_pos, self.resources)
+                self.entities.append(entity)
+                self.buildings[grid_pos[0]][grid_pos[1]] = entity
 
-            if self.hud.selected_building["name"] == "house":
-              entity = House(grid_pos, self.resources)
-              self.entities.append(entity)
-              self.buildings[grid_pos[0]][grid_pos[1]] = entity
+              if self.hud.selected_building["name"] == "house":
+                entity = House(grid_pos, self.resources)
+                self.entities.append(entity)
+                self.buildings[grid_pos[0]][grid_pos[1]] = entity
 
-            self.world[grid_pos[0]][grid_pos[1]]["tile"] = self.hud.selected_building["name"]
-            self.world[grid_pos[0]][grid_pos[1]]["collision"] = True
-            self.hud.selected_building = None
-            pg.mixer.Sound("assets/sound/sfx/build.wav").play().set_volume(0.05)
+              self.world[grid_pos[0]][grid_pos[1]]["tile"] = self.hud.selected_building["name"]
+              self.world[grid_pos[0]][grid_pos[1]]["collision"] = True
+              self.hud.selected_building = None
+              pg.mixer.Sound("assets/sound/sfx/build.wav").play().set_volume(0.05)
+              
+          except:
+            pass
 
 
 
