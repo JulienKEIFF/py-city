@@ -20,7 +20,8 @@ class Resources:
 
     self.costs = {
       "sawmill": {"wood": 10, "rock": 5},
-      "mine": {"wood": 10, "rock": 15}
+      "mine": {"wood": 10, "rock": 15},
+      "church": {"wood": 50, "rock": 75},
     }
 
   def get_resources(self):

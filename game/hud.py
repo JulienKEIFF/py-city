@@ -92,10 +92,12 @@ class Hud:
   def load_image(self):
     sawmill = pg.image.load("assets/building/sawmill.png")
     mine = pg.image.load("assets/building/mine.png")
+    church = pg.image.load("assets/building/church.png")
 
     images = {
       "mine": mine,
       "sawmill": sawmill,
+      "church": church,
     }
 
     return images
