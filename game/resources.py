@@ -26,7 +26,8 @@ class Resources:
       "mine": {"wood": 10, "rock": 15, "citizen": 2},
       "sawmill": {"wood": 10, "rock": 5, "citizen": 2},
       "church": {"wood": 50, "rock": 75, "gold": 25, "citizen": 2},
-      "house": {"wood": 10, "rock": 5, "gold": 5 }
+      "house": {"wood": 10, "rock": 5, "gold": 5 },
+      "road": {"wood": 1, "rock": 1},
     }
 
   def get_resources(self):

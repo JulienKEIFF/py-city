@@ -17,9 +17,14 @@ class Hud:
     self.ressources_surface.fill(self.hud_color)
 
     # Building HUD
-    self.building_surface = pg.Surface((width, height * 0.2), pg.SRCALPHA)
+    self.building_surface = pg.Surface((width * 0.8, height * 0.2), pg.SRCALPHA)
     self.build_rect = self.building_surface.get_rect(topleft=(0, self.height * 0.8))
     self.building_surface.fill(self.hud_color)
+
+    # Detail cost
+    self.detail_surface = pg.Surface((width * 0.2, height * 0.2), pg.SRCALPHA)
+    self.detail_rect = self.detail_surface.get_rect(topleft=(width * 0.8, self.height * 0.8))
+    self.detail_surface.fill(self.hud_color)
 
     self.images = self.load_image()
     self.tiles = self.create_build_hud()
@@ -30,7 +35,7 @@ class Hud:
 
   def create_build_hud(self):
     render_pos = [self.width * 0.01 + 10, self.height * 0.8 + 10]
-    object_width = (self.building_surface.get_width())/ 20 
+    object_width = (self.building_surface.get_width())/ 15 
 
     tiles = []
 
@@ -77,6 +82,7 @@ class Hud:
 
     screen.blit(self.ressources_surface, (0, 0))
     screen.blit(self.building_surface, (0, self.height * 0.8))
+    screen.blit(self.detail_surface, (self.width * 0.8, self.height * 0.8))
 
     for tile in self.tiles:
       screen.blit(tile["icon"], tile["rect"].topleft)
@@ -92,9 +98,19 @@ class Hud:
     for building in self.resources.get_all_cost().items():
       draw_text(screen, building[0], 30, (255, 255, 255), (pos, self.height * 0.9))
       if building[0].__len__() < 5:
-        pos += 65
+        pos += 70
       else:
         pos += 90
+    
+    # Detail cost
+    pos_x = self.width * 0.8 + 40
+    pos_y = self.height * 0.8 + 70
+    if self.selected_building is not None:
+      cost = self.resources.get_cost(self.selected_building["name"])
+      draw_text(screen, self.selected_building["name"], 30, (255, 255, 255), (pos_x, self.height * 0.82))
+      for building, cost in cost.items():
+        draw_text(screen, building + ": " + cost.__str__(), 30, (255, 255, 255), (pos_x, pos_y))
+        pos_y += 30
 
 
 
@@ -104,12 +120,14 @@ class Hud:
     mine = pg.image.load("assets/building/mine.png")
     church = pg.image.load("assets/building/church.png")
     house = pg.image.load("assets/building/house.png")
+    road = pg.image.load("assets/building/road.png")
 
     images = {
       "mine": mine,
       "sawmill": sawmill,
       "church": church,
       "house": house,
+      "road": road
     }
 
     return images

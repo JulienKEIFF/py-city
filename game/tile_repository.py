@@ -8,6 +8,7 @@ def load_images():
   grass = pg.image.load("assets/env/grass.png").convert_alpha()
   tree = pg.image.load("assets/env/tree.png").convert_alpha()
   rock = pg.image.load("assets/env/rock.png").convert_alpha()
+  road = pg.image.load("assets/building/road.png").convert_alpha()
 
   return {
     # Environement tiles
@@ -20,4 +21,5 @@ def load_images():
     "sawmill": sawmill,
     "church": church,
     "house": house,
+    "road": road,
   }
