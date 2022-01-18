@@ -15,6 +15,10 @@ class Resources:
       "gold":{
         "name": "Or",
         "total": 20
+      },
+      "citizen": {
+        "name": "Population",
+        "total": 2
       }
     }
 
@@ -22,6 +26,7 @@ class Resources:
       "sawmill": {"wood": 10, "rock": 5},
       "mine": {"wood": 10, "rock": 15},
       "church": {"wood": 50, "rock": 75},
+      "house": {"wood": 10, "rock": 5 }
     }
 
   def get_resources(self):
@@ -33,6 +38,10 @@ class Resources:
   def apply_cost_to_resource(self, building):
     for resource, cost in self.costs[building].items():
       self.resources[resource]["total"] -= cost
+
+  def add_citizen(self, citizen_to_add):
+    self.resources["citizen"]["total"] += citizen_to_add
+    print('ici')
 
   def is_affordable(self, building):
     affordable = True

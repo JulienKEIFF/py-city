@@ -17,7 +17,7 @@ class Hud:
     self.ressources_surface.fill(self.hud_color)
 
     # Building HUD
-    self.building_surface = pg.Surface((width * 0.15, height * 0.25), pg.SRCALPHA)
+    self.building_surface = pg.Surface((width * 1, height * 0.25), pg.SRCALPHA)
     self.build_rect = self.building_surface.get_rect(topleft=(self.width * 0.84, self.height * 0.74))
     self.building_surface.fill(self.hud_color)
 
@@ -30,7 +30,7 @@ class Hud:
 
   def create_build_hud(self):
     render_pos = [self.width * 0.85 + 10, self.height * 0.75 + 10]
-    object_width = (self.building_surface.get_width() - 60 )/ 2 
+    object_width = (self.building_surface.get_width())/ 120 
 
     tiles = []
 
@@ -82,9 +82,9 @@ class Hud:
       screen.blit(tile["icon"], tile["rect"].topleft)
 
     # resssources
-    pos = self.width - 400
+    pos = self.width - 650
     for ressource in self.resources.get_resources().items():
-      draw_text(screen, ressource[1]["name"] + ": " + ressource[1]["total"].__str__(), 30, (255, 255, 255), (pos, 5))
+      draw_text(screen, ressource[1]["name"] + ": " + ressource[1]["total"].__str__(), 30, (255, 255, 255), (pos, 10))
       pos += 150
 
 
@@ -93,11 +93,13 @@ class Hud:
     sawmill = pg.image.load("assets/building/sawmill.png")
     mine = pg.image.load("assets/building/mine.png")
     church = pg.image.load("assets/building/church.png")
+    house = pg.image.load("assets/building/house.png")
 
     images = {
       "mine": mine,
       "sawmill": sawmill,
       "church": church,
+      "house": house,
     }
 
     return images

@@ -46,3 +46,17 @@ class Chuch:
     if now - self.resource_cooldown > 2000:
       self.resource.resources["gold"]["total"] += 10
       self.resource_cooldown = now
+
+class House: 
+  def __init__(self, position, ressource):
+    self.image  = pg.image.load("assets/building/house.png")
+    self.name = "house"
+    self.rect = self.image.get_rect(topleft=position)
+    self.resource = ressource
+    self.resource.apply_cost_to_resource(self.name)
+    self.resource_cooldown = pg.time.get_ticks()
+    self.resource.add_citizen(5)
+
+
+  def update(self):
+    pass
