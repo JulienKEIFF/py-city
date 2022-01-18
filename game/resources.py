@@ -35,6 +35,9 @@ class Resources:
   def get_cost(self, building):
     return self.costs[building]
 
+  def get_all_cost(self):
+    return self.costs
+
   def apply_cost_to_resource(self, building):
     for resource, cost in self.costs[building].items():
       self.resources[resource]["total"] -= cost

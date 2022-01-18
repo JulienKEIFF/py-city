@@ -17,8 +17,8 @@ class Hud:
     self.ressources_surface.fill(self.hud_color)
 
     # Building HUD
-    self.building_surface = pg.Surface((width * 1, height * 0.25), pg.SRCALPHA)
-    self.build_rect = self.building_surface.get_rect(topleft=(self.width * 0.84, self.height * 0.74))
+    self.building_surface = pg.Surface((width, height * 0.2), pg.SRCALPHA)
+    self.build_rect = self.building_surface.get_rect(topleft=(0, self.height * 0.8))
     self.building_surface.fill(self.hud_color)
 
     self.images = self.load_image()
@@ -29,8 +29,8 @@ class Hud:
 
 
   def create_build_hud(self):
-    render_pos = [self.width * 0.85 + 10, self.height * 0.75 + 10]
-    object_width = (self.building_surface.get_width())/ 35 
+    render_pos = [self.width * 0.01 + 10, self.height * 0.8 + 10]
+    object_width = (self.building_surface.get_width())/ 20 
 
     tiles = []
 
@@ -76,7 +76,7 @@ class Hud:
       screen.blit(img, pg.mouse.get_pos())
 
     screen.blit(self.ressources_surface, (0, 0))
-    screen.blit(self.building_surface, (self.width * 0.85, self.height * 0.75))
+    screen.blit(self.building_surface, (0, self.height * 0.8))
 
     for tile in self.tiles:
       screen.blit(tile["icon"], tile["rect"].topleft)
@@ -86,6 +86,16 @@ class Hud:
     for ressource in self.resources.get_resources().items():
       draw_text(screen, ressource[1]["name"] + ": " + ressource[1]["total"].__str__(), 30, (255, 255, 255), (pos, 10))
       pos += 150
+
+    # Building
+    pos = 20
+    for building in self.resources.get_all_cost().items():
+      draw_text(screen, building[0], 30, (255, 255, 255), (pos, self.height * 0.9))
+      if building[0].__len__() < 5:
+        pos += 65
+      else:
+        pos += 100
+
 
 
 
