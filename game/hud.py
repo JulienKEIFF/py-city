@@ -88,13 +88,13 @@ class Hud:
       pos += 150
 
     # Building
-    pos = 20
+    pos = 40
     for building in self.resources.get_all_cost().items():
       draw_text(screen, building[0], 30, (255, 255, 255), (pos, self.height * 0.9))
       if building[0].__len__() < 5:
         pos += 65
       else:
-        pos += 100
+        pos += 90
 
 
 

@@ -6,27 +6,27 @@ class Resources:
     self.resources = {
       "wood": {
         "name": "Bois",
-        "total": 20
+        "total": 50
       },
       "rock":{
         "name": "Roche",
-        "total": 20
+        "total": 50
       },
       "gold":{
         "name": "Or",
-        "total": 20
+        "total": 50
       },
       "citizen": {
         "name": "Population",
-        "total": 2
+        "total": 0
       }
     }
 
     self.costs = {
-      "sawmill": {"wood": 10, "rock": 5},
-      "mine": {"wood": 10, "rock": 15},
-      "church": {"wood": 50, "rock": 75},
-      "house": {"wood": 10, "rock": 5 }
+      "mine": {"wood": 10, "rock": 15, "citizen": 2},
+      "sawmill": {"wood": 10, "rock": 5, "citizen": 2},
+      "church": {"wood": 50, "rock": 75, "gold": 25, "citizen": 2},
+      "house": {"wood": 10, "rock": 5, "gold": 5 }
     }
 
   def get_resources(self):
