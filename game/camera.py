@@ -6,10 +6,15 @@ class Camera:
     self.width = width
     self.height = height
 
-    self.scroll = pg.Vector2(0, 0)
+    self.scroll = pg.Vector2(-2500, -1000) # Center the view at launch
     self.direction_x = 0
     self.direction_y = 0
     self.speed = 25
+
+    self.max_scroll_x = -5250
+    self.min_scroll_x = 250
+    self.max_scroll_y = -2500
+    self.min_scroll_y = 250
 
   def update(self):
     mouse_position = pg.mouse.get_pos()
@@ -31,5 +36,10 @@ class Camera:
       self.direction_y = 0
 
     # update scroll
-    self.scroll.x += self.direction_x
-    self.scroll.y += self.direction_y    
+    new_scroll_x = self.direction_x + self.scroll.x
+    new_scroll_y = self.direction_y + self.scroll.y
+    if self.min_scroll_x > new_scroll_x and self.max_scroll_x < new_scroll_x: 
+      self.scroll.x += self.direction_x
+
+    if self.min_scroll_y > new_scroll_y and self.max_scroll_y < new_scroll_y: 
+      self.scroll.y += self.direction_y    

@@ -30,7 +30,7 @@ class Hud:
 
   def create_build_hud(self):
     render_pos = [self.width * 0.85 + 10, self.height * 0.75 + 10]
-    object_width = (self.building_surface.get_width() - 60 )/ 4 
+    object_width = (self.building_surface.get_width() - 60 )/ 2 
 
     tiles = []
 
